@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var builder = require('xmlbuilder');
-var bot = require('./nodemw/lib/bot').bot;
+var bot = require('nodemw');
 
 
 var idKeys = true; // set to true for special behaviour if fields of the format _id are foreign keys to other tables
@@ -21,9 +21,10 @@ var wikibot;
 
 function getConnection() {
   return mysql.createConnection({
-    host     : 'localhost',
+    host     : global.mysqlHost,
+    port     : global.mysqlPort,
     user     : 'root',
-    password : GLOBAL.mysqlPassword
+    password : global.mysqlPassword
   });
 }
 
@@ -40,7 +41,7 @@ function getWiki() {
 }
 
 function processTables() {
-  var query = connection.query('use ' + GLOBAL.mysqlDB);
+  var query = connection.query('use ' + global.mysqlDB);
   query.on('error', function(err) {
       console.log(err);
       throw err;
@@ -52,7 +53,7 @@ function processTables() {
       console.log(err);
       throw err;
   }).on('result', function(row) {
-    tables.push(row['Tables_in_' + GLOBAL.mysqlDB]); // FIXME: this seems hokey
+    tables.push(row['Tables_in_' + global.mysqlDB]);
   }).on('end', function() { 
     processSchemas(tables);
   });
