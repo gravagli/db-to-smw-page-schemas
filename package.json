@@ -1,0 +1,25 @@
+{
+  "name": "db-to-smw-page-schemas",
+  "version": "1.0.0",
+  "description": "db-to-smw-page-schemas\r ======================",
+  "main": "MysqlToSMW.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wikifier/db-to-smw-page-schemas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wikifier/db-to-smw-page-schemas/issues"
+  },
+  "homepage": "https://github.com/wikifier/db-to-smw-page-schemas#readme",
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "nodemw": "^0.12.2",
+    "xmlbuilder": "^13.0.2"
+  }
+}
