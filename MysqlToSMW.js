@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 var builder = require('xmlbuilder');
 var bot = require('nodemw');
-
+var fs = require('fs') 
 
 var idKeys = true; // set to true for special behaviour if fields of the format _id are foreign keys to other tables
 
@@ -121,10 +121,11 @@ var submittedSchemas = 0;
 function submitSchema(table, schema, extra) {
   table = 'Category:' + smwName(table);
   var stext = schema.end({pretty: true}).replace('<?xml version="1.0"?>', '');
-console.log(stext);
-        
+  //console.log(stext);
   wikibot.edit(table, stext + "\n" + extra, "imported from mysql", finishSchema);
-console.log("will edit " + table);
+  fs.writeFile('xml/'+table+'.xml', stext, (err) => {if (err) throw err; }) 
+
+  //console.log("will edit " + table);
 
   if (++submittedSchemas == tables.length) {
     endConnection(connection);

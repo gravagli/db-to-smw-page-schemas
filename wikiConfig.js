@@ -1,9 +1,9 @@
 {
 	"protocol": "http",
 	"port": 80,
-	"server": "server.tld",
-	"path": "/wiki",
+	"server": "staging.buyborghi.it",
+	"path": "/w",
 	"debug": false,
 	"username": "admin",
-	"password": "password"
+	"password": "m3d14w1k1"
 }
