@@ -7,15 +7,19 @@ var idKeys = true; // set to true for special behaviour if fields of the format 
 
 require('./local.js');
 
-var smap = {'varchar(255)': 'String'
-  , 'int(11)' : 'Number'
-  , 'int(3)' : 'Number'
-  , 'blob' : 'Text'
-  , 'tinyint(1)' : 'Boolean'
-  , 'date' : 'Date'
-  , 'datetime' : 'Date'
-  , 'float' : 'Number'
-};
+var smap = [{dbtype:'varchar', type: 'String'},
+{dbtype:'int', type: 'Number'},
+{dbtype:'bigint', type: 'Number'},
+{dbtype:'blob', type: 'Text'},
+{dbtype:'varbinary', type: 'Text'},
+{dbtype:'blob', type: 'Text'},
+{dbtype:'binary', type: 'Text'},
+{dbtype:'tinyint(1)', type: 'Boolean'},
+{dbtype:'tinyint(3)', type: 'Number'},
+{dbtype:'tinyint(4)', type: 'Number'},
+{dbtype:'date', type: 'Date'},
+{dbtype:'float', type: 'Number'}
+];
 var schemas = {};
 var wikibot;
 
@@ -142,7 +146,10 @@ function smwName(s) {
 /* Map a db type to an SMW type. Uses Page if it ends in _id.  */
 
 function popSMW(field, type) {
-  smwtype = smap[type];
+  //console.log("field = "+ field + "type = "+type)
+  smwtype = smap
+                .filter(entry => entry.dbtype==field)
+                .map(entry => entry.type);
   if (!smwtype) {
     if (type.indexOf("enum(") == 0) {
       smwtype = type;
